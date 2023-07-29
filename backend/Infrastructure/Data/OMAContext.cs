@@ -46,7 +46,7 @@ public class OMAContext :DbContext
         City = "New York",
         Country = "USA",
         State = "NY",
-        AddressLine2 = "",
+        AddressLine2 = "asdasd",
         CustomerId = 1
       },
       new Address
@@ -72,7 +72,7 @@ public class OMAContext :DbContext
         DepositAmount = 100,
         Status = Status.Draft,
         OrderDate = new DateTime(2022,11,10),
-        OtherNotes = ""
+        OtherNotes = "asdasda"
       },
     new Order{
       CustomerId = 2,
@@ -83,8 +83,8 @@ public class OMAContext :DbContext
       TotalAmount = 500,
       DepositAmount = 100,
       Status = Status.Pending,
-      OtherNotes = "",
-      OrderDate = new DateTime(2022,12,1)
+      OtherNotes = "asdsa",
+      OrderDate = new DateTime(2022,12,01)
       
     }
       );
