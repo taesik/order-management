@@ -9,9 +9,9 @@ public class Order {
   public string Description { get; set; }
   public decimal TotalAmount { get; set; }
   public decimal DepositAmount { get; set; }
-  public int isDelivery { get; set; }
+  public bool isDelivery { get; set; }
   public Status Status { get; set; }
   public string OtherNotes { get; set; }
-  public int isDeleted { get; set; }
+  public bool isDeleted { get; set; }
   public Customer Customer { get; set; }
 }
