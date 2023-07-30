@@ -1,5 +1,5 @@
 ﻿import {Customer, Order} from "../graphql/generated/schema";
-import {useMemo, useState} from "react";
+import {ReactElement, useMemo, useState} from "react";
 import {AgGridReact} from "ag-grid-react";
 
 import 'ag-grid-community/styles/ag-grid.css';
@@ -13,7 +13,15 @@ export default function OrderList({orders}:Props) {
         {
             field: 'id',
             width: 50,
-            suppressSizeFit:true,
+            suppressSizeFit: true,
+            cellRenderer: (params: any): ReactElement<HTMLButtonElement> => (
+                <button className={'bg-amber-800 '}
+                        onClick={() => {
+                            window.open(`/orders/${params.value}`, '_black')
+                        }}>
+                    Launch
+                </button>
+            )
         },
         {
             field: 'customer',

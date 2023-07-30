@@ -1,6 +1,6 @@
 ﻿import { Customer} from "../graphql/generated/schema";
 import * as yup from 'yup';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Form, Formik} from "formik";
 import {OmSubmitButton} from "./OmSubmitButton";
@@ -35,11 +35,11 @@ export function CustomerForm({customer}:Props) {
         country:customer?.address?.country || '',
     }
     const [detail , setDetail] = useState(customer );
-    const [address1, setAddress1] = useState(customer.address?.addressLine1);
-    const [address2, setAddress2] = useState(customer.address?.addressLine2);
-    const [city, setCity] = useState(customer.address?.city);
-    const [state, setState] = useState(customer.address?.state);
-    const [country, setCountry] = useState(customer.address?.country);
+    const [address1, setAddress1] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
 
     function addOrUpdateCustmerDtl(val:any) {
         console.log(val)
@@ -50,6 +50,13 @@ export function CustomerForm({customer}:Props) {
             [e.target.name]:e.target.value,
         })
     }
+
+    useEffect(() => {
+        console.log('detail',detail)
+        return () => {
+            
+        };
+    }, [detail]);
     
     return (
         <div>
@@ -63,28 +70,28 @@ export function CustomerForm({customer}:Props) {
                             <div>
                             {/*  TODO:  text field*/}
                                 <label htmlFor="firstName">first name</label>
-                                <input value={detail.firstName} onChange={(e)=>{
+                                <input value={detail?.firstName} onChange={(e)=>{
                                     changeHandler(e);
                                 }} type="text" name="firstName" id="firstName"/>
                             </div>
                             <div>
                                 {/*  TODO:  text field*/}
                                 <label htmlFor="lastName">last name</label>
-                                <input type="text" value={detail.lastName} onChange={e=>{
+                                <input type="text" value={detail?.lastName} onChange={e=>{
                                     changeHandler(e)
                                 }} name="lastName" id="lastName"/>
                             </div>
                             <div>
                                 {/*  TODO:  text field*/}
                                 <label htmlFor="email">email</label>
-                                <input value={detail.email} onChange={e=>{
+                                <input value={detail?.email} onChange={e=>{
                                     changeHandler(e)
                                 }} type="text" name="email" id="email"/>
                             </div>
                             <div>
                                 {/*  TODO:  text field*/}
                                 <label htmlFor="contactNumber">contact number</label>
-                                <input value={detail.contactNumber} onChange={e=>{
+                                <input value={detail?.contactNumber} onChange={e=>{
                                     changeHandler(e)
                                 }} type="text" name="contactNumber" id="contactNumber"/>
                             </div>

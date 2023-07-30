@@ -20,7 +20,12 @@
       depositAmount
       isDelivery
       status
-      otherNotes
+      otherNotes 
+      customer {
+        id
+        firstName
+        lastName
+      }
     }
     
   }
