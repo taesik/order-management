@@ -3,9 +3,9 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./page/HomePage";
-import CustomerDshbrd from "./components/CustomerDshbrd";
 import './index.css';
-import OrderDshbrd from "./components/OrderDshbrd";
+import OrderDshbrd from "./page/OrderDshbrd";
+import CustomerDshbrd from "./page/CustomerDshbrd";
 
 const client = new ApolloClient({
     cache: new InMemoryCache({

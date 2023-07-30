@@ -1,5 +1,6 @@
 ﻿import {Order, useGetOrdersQuery} from "../graphql/generated/schema";
-import OrderList from "./OrderList";
+import {useEffect} from "react";
+import OrderList from "../components/OrderList";
 
 export default function OrderDshbrd() {
     const {data:ordersData
@@ -7,6 +8,11 @@ export default function OrderDshbrd() {
         , error}
         = useGetOrdersQuery();
     
+    useEffect(() => {
+        console.log('ordersData',ordersData);
+        return () => {
+        };
+    }, [ordersData]);
     
     return (
         <div>
