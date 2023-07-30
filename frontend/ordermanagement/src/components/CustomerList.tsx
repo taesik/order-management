@@ -1,6 +1,5 @@
-﻿import {useMemo, useState} from "react";
+﻿import {ReactElement, useState} from "react";
 import {Address, Customer} from "../graphql/generated/schema";
-import {AgGridReact} from "ag-grid-react";
 import OmGrid from "./OmGrid";
 
 interface Props {
@@ -9,9 +8,22 @@ interface Props {
 export default function CustomerList({customers}:Props) {
     const [columnDefs, setColumnDefs] = useState([
         {
+            field: 'id',
+            width: 50,
+            suppressSizeFit:true,
+            cellRenderer:  (params:any):ReactElement<HTMLButtonElement>=>(
+                <button className={'bg-amber-800 '}  
+                        onClick={()=>{
+                            window.open(`/customers/${params.value}`, '_black')
+                        }}>
+                    Launch
+                </button>
+                    )
+    
+        },
+        {
             field: 'firstName',
             width: 120,
-            suppressSizeFit:true,
         },
         {
             field: 'lastName',
@@ -26,18 +38,13 @@ export default function CustomerList({customers}:Props) {
         {
             field: 'address',
             width: 300,
-            cellRenderer:function (params:any) {
+            cellRenderer:function (params:any):string {
                 const address = params.value as Address;
                 return `${address.addressLine2}, ${address.addressLine1}, ${address.city}, ${address.state}, ${address.country}`;
             }
         },
     ]);
 
-    const defaultColDef = useMemo(()=>({
-        sortable:true,
-        filter:true,
-        resizable:true
-    }),[]);
 
     return (
         <OmGrid rowData={customers} columnDefs={columnDefs}/>
