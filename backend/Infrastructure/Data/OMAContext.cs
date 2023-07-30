@@ -42,22 +42,22 @@ public class OMAContext :DbContext
       new Address
       {
         Id = 1,
-        AddressLine1 = "123 Main Street",
+        CustomerId = 1,
         City = "New York",
         Country = "USA",
         State = "NY",
-        AddressLine2 = "asdasd",
-        CustomerId = 1
+        AddressLine1 = "123 Main Street",
+        AddressLine2 = "asdasd"
       },
       new Address
       {
         Id = 2,
-        AddressLine1 = "123 Main Street",
+        CustomerId = 2,
         City = "New York",
         Country = "USA",
         State = "NY",
-        AddressLine2 = "asd",
-        CustomerId = 2
+        AddressLine1 = "123 Main Street",
+        AddressLine2 = "asd"
       }
     );
     modelBuilder.Entity<Order>().HasData(
