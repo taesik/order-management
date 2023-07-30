@@ -15,6 +15,11 @@ import {Button} from "flowbite-react";
                             <Link to={'/customers'}>Customers</Link>
                         </Button>
                     </div>
+                    <div className={'flex'}>
+                        <Button  key={'Orders'}>
+                            <Link to={'/orders'}>Orders</Link>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>
