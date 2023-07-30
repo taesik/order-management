@@ -36,7 +36,7 @@ export default function OrderList({orders}:Props) {
     }),[]);
     
     return (
-        <div className={'h-full w-96'}>
+        <div className={'h-96 w-[700px] ag-theme-alpine'}>
             <AgGridReact 
                 columnDefs={columnDefs}
                 defaultColDef={defaultColDef}

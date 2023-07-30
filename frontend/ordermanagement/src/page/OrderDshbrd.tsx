@@ -26,19 +26,18 @@ export default function OrderDshbrd() {
                 <li className={'w-[20%]'}>Order Date</li>
                 <li className={'w-[20%]'}>Status</li>
             </ul>
-            <div>
-                {
-                    orders && orders.map((el)=>{
-                        return <div className={'flex gap-10'}>
-                            <div className={'w-[15%]'}>{el.customer?.firstName} {el.customer?.lastName}</div>
-                            <div className={'w-[15%]'}>{el.orderDate}</div>
-                            <div className={'w-[15%]'}>{el.status}</div>
-                        </div>
-                    })
-                }
-                
-                {/*<OrderList orders={ordersData?.orders as Order[]}/>*/}
-            </div>
+            {/*<div>*/}
+            {/*    {*/}
+            {/*        orders && orders.map((el)=>{*/}
+            {/*            return <div className={'flex gap-10'}>*/}
+            {/*                <div className={'w-[15%]'}>{el.customer?.firstName} {el.customer?.lastName}</div>*/}
+            {/*                <div className={'w-[15%]'}>{el.orderDate}</div>*/}
+            {/*                <div className={'w-[15%]'}>{el.status}</div>*/}
+            {/*            </div>*/}
+            {/*        })*/}
+            {/*    }*/}
+            {/*</div>*/}
+            <OrderList orders={orders}/>
         </div>
     );
 }
