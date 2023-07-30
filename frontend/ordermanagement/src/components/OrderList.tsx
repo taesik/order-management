@@ -4,6 +4,7 @@ import {AgGridReact} from "ag-grid-react";
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import OmGrid from "./OmGrid";
 interface Props {
     orders:Order[];
 }
@@ -29,18 +30,9 @@ export default function OrderList({orders}:Props) {
         }
     ]);
     
-    const defaultColDef = useMemo(()=>({
-        sortable:true,
-        filter:true,
-        resizable:true
-    }),[]);
+    
     
     return (
-        <div className={'h-96 w-[700px] ag-theme-alpine'}>
-            <AgGridReact 
-                columnDefs={columnDefs}
-                defaultColDef={defaultColDef}
-                rowData={orders}/>
-        </div>
+        <OmGrid rowData={orders} columnDefs={columnDefs}/>
     );
 }

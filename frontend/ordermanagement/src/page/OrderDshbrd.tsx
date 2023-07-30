@@ -21,11 +21,6 @@ export default function OrderDshbrd() {
             <div>
                 <div>Orders List</div>
             </div>
-            <ul className={'flex  '}>
-                <li className={'w-[20%]'}>Customer</li>
-                <li className={'w-[20%]'}>Order Date</li>
-                <li className={'w-[20%]'}>Status</li>
-            </ul>
             {/*<div>*/}
             {/*    {*/}
             {/*        orders && orders.map((el)=>{*/}

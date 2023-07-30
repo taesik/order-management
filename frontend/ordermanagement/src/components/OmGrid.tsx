@@ -4,27 +4,12 @@ import {AgGridReact} from "ag-grid-react";
 import {useMemo, useState} from "react";
 import {Customer} from "../graphql/generated/schema";
 
-export default function OmGrid() {
-    const [columnDefs, setColumnDefs] = useState([
-        {
-            field: 'id',
-            width: 50,
-            suppressSizeFit:true,
-        },
-        {
-            field: 'customer',
-            cellRenderer:function (params:any) {
-                const customer = params.value as Customer;
-                return customer.firstName + ' ' + customer.lastName;
-            }
-        },
-        {
-            field: 'orderDate',
-        },
-        {
-            field: 'status'
-        }
-    ]);
+interface Props {
+    rowData:any,
+    columnDefs:any,
+}
+export default function OmGrid({rowData,columnDefs}:Props) {
+    
 
     const defaultColDef = useMemo(()=>({
         sortable:true,
@@ -34,11 +19,11 @@ export default function OmGrid() {
     
     
     return (
-        <div className={'h-full w-96 ag-theme-alpine'}>
+        <div className={'h-[800px] w-[1000px] ag-theme-alpine'}>
             <AgGridReact
-                columnDefs={[]}
-                // defaultColDef={[]}
-                rowData={[]}
+                columnDefs={columnDefs}
+                defaultColDef={defaultColDef}
+                rowData={rowData}
             />
         </div>
     );

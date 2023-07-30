@@ -1,6 +1,7 @@
 ﻿import {useMemo, useState} from "react";
 import {Address, Customer} from "../graphql/generated/schema";
 import {AgGridReact} from "ag-grid-react";
+import OmGrid from "./OmGrid";
 
 interface Props {
     customers:Customer[];
@@ -24,9 +25,10 @@ export default function CustomerList({customers}:Props) {
         },
         {
             field: 'address',
+            width: 300,
             cellRenderer:function (params:any) {
                 const address = params.value as Address;
-                return address.addressLine1 + ' ' + address.addressLine2;
+                return `${address.addressLine2}, ${address.addressLine1}, ${address.city}, ${address.state}, ${address.country}`;
             }
         },
     ]);
@@ -38,11 +40,6 @@ export default function CustomerList({customers}:Props) {
     }),[]);
 
     return (
-        <div className={'h-96 w-[700px] ag-theme-alpine'}>
-            <AgGridReact
-                columnDefs={columnDefs}
-                defaultColDef={defaultColDef}
-                rowData={customers}/>
-        </div>
+        <OmGrid rowData={customers} columnDefs={columnDefs}/>
     );
 }
