@@ -1,6 +1,8 @@
 ﻿import {Customer, useGetCustomersQuery} from "../graphql/generated/schema";
 import {useEffect} from "react";
 import CustomerList from "../components/CustomerList";
+import OmLoading from "../components/OmLoading";
+import OmAlert from "../components/OmAlert";
 
 const CustomerDshbrd = () => {
     const {data
@@ -8,19 +10,15 @@ const CustomerDshbrd = () => {
         , error} 
         = useGetCustomersQuery();
     
-    useEffect(() => {
-        console.log('error',error);
-        return () => {
-        };
-    }, [error]);
-    
-    useEffect(() => {
-        console.log('data',data);
-        return () => {
-        };
-    }, [data]);
-    
-    
+   
+    if (loading) {
+        return <OmLoading/>;
+    }
+    if (error || !data) {
+        return <OmAlert title={'Error!'} message={'Something went wrong'} 
+                        status={'failure'}/>
+    }
+
     const customers = data?.customers as Customer[];
     return (
         <div>

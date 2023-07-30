@@ -1,6 +1,8 @@
 ﻿import {Order, useGetOrdersQuery} from "../graphql/generated/schema";
 import {useEffect} from "react";
 import OrderList from "../components/OrderList";
+import OmLoading from "../components/OmLoading";
+import OmAlert from "../components/OmAlert";
 
 export default function OrderDshbrd() {
     const {data:ordersData
@@ -15,7 +17,14 @@ export default function OrderDshbrd() {
     }, [ordersData]);
     
     const orders = ordersData?.orders as Order[];
-    
+    if (loading) {
+        return <OmLoading/>;
+    }
+    if (error || !ordersData) {
+        return <OmAlert title={'Error!'} message={'Something went wrong'}
+                        status={'failure'}/>
+    }
+
     return (
         <div>
             <div>
