@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContextFactory<OMAContext>(options =>
   {
-    options.UseInMemoryDatabase("InMemoryDb");
+    options.UseSqlite(builder.Configuration["ConnectionStrings:DefaultConnection"]);
   }
 );
 builder.Services.AddScoped<ICustomerService,CustomerService>();
@@ -44,5 +44,18 @@ var app = builder.Build();
 app.UseCors(allowSpecificOrigins);
 app.MapGraphQL();
 app.UseGraphQLVoyager("/graphql-voyager", new VoyagerOptions{ GraphQLEndPoint = "/graphql" });
+
+//migrate database
+try
+{
+  var scope = app.Services.CreateScope();
+  var context = scope.ServiceProvider.GetRequiredService<OMAContext>();
+  context.Database.Migrate();
+}
+catch (Exception e)
+{
+  var logger = app.Services.GetRequiredService<ILogger<Program>>();
+  logger.LogError(e, "An error occurred while migrating the database");
+}
 
 app.Run();
