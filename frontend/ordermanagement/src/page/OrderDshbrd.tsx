@@ -14,13 +14,30 @@ export default function OrderDshbrd() {
         };
     }, [ordersData]);
     
+    const orders = ordersData?.orders as Order[];
+    
     return (
         <div>
             <div>
                 <div>Orders List</div>
             </div>
+            <ul className={'flex  '}>
+                <li className={'w-[20%]'}>Customer</li>
+                <li className={'w-[20%]'}>Order Date</li>
+                <li className={'w-[20%]'}>Status</li>
+            </ul>
             <div>
-                <OrderList orders={ordersData?.orders as Order[]}/>
+                {
+                    orders && orders.map((el)=>{
+                        return <div className={'flex gap-10'}>
+                            <div className={'w-[15%]'}>{el.customer?.firstName} {el.customer?.lastName}</div>
+                            <div className={'w-[15%]'}>{el.orderDate}</div>
+                            <div className={'w-[15%]'}>{el.status}</div>
+                        </div>
+                    })
+                }
+                
+                {/*<OrderList orders={ordersData?.orders as Order[]}/>*/}
             </div>
         </div>
     );
