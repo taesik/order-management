@@ -77,4 +77,33 @@ public class CustomerService :ICustomerService
     
     return customer;
   }
+
+  public async Task<bool> DeleteCustomerAsync(int customerid)
+  {
+    var context = _contextFactory.CreateDbContext();
+    var customer = await context.Customers
+      .Where(c => c.Id == customerid)
+      .FirstOrDefaultAsync();
+    if (customer ==null)
+    {
+      throw new Exception($"Customer with id {customerid} was not found");
+    }
+
+    customer.IsDeleted = true;
+
+    var orders = await context.Orders
+      .Where(o => o.CustomerId == customerid)
+      .ToListAsync();
+
+    foreach (var order in orders)
+    {
+      order.IsDeleted = true;
+    }
+
+    context.Customers.Update(customer);
+    context.Orders.UpdateRange(orders);
+    
+    
+    return await context.SaveChangesAsync() >0;
+  }
 }

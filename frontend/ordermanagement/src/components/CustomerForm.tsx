@@ -1,9 +1,8 @@
-﻿import { Customer} from "../graphql/generated/schema";
+﻿import { Customer, CustomerModelInput, useAddOrUpdateCustomerMutation} from "../graphql/generated/schema";
 import * as yup from 'yup';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Form, Formik} from "formik";
-import {OmSubmitButton} from "./OmSubmitButton";
 interface Props {
     customer:Customer
 }
@@ -41,9 +40,23 @@ export function CustomerForm({customer}:Props) {
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
 
-    function addOrUpdateCustmerDtl(val:any) {
-        console.log(val)
+    async function addOrUpdateCustmerDtl(val:CustomerModelInput) {
+        const response = await addOrUpdateCustomer({
+            variables: {
+                customer: val,
+            }
+        });
+        setOpen(true);
+        
+        const customer = response.data?.addOrUpdateCustomer as Customer;
+        
+        if (customer.id)
+        {
+            navigate(`/customers/${customer.id}`);
+        }
     }
+    
+    
     function changeHandler(e:any) {
         setDetail({
             ...detail,
@@ -58,13 +71,27 @@ export function CustomerForm({customer}:Props) {
         };
     }, [detail]);
     
+    const [addOrUpdateCustomer
+        ,{loading:addOrUpdateCustomerLoading,
+        error:addOrUpdateCustomerError}]
+        = useAddOrUpdateCustomerMutation();
+    
+    function handleClose (e:any) {
+        if (e.reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    }
+
+    // {addressLine1: Scalars["String"], addressLine2: Scalars["String"], city: Scalars["String"], contactNumber: Scalars["String"], country: Scalars["String"], email: Scalars["String"], firstName: Scalars["String"], id?: InputMaybe<Scalars["Int"]>, lastName: Scalars["String"], state: Scalars["String"]}
+    
     return (
         <div>
             <div>
                 <Formik initialValues={INITIAL_FORM_STATE}
                     validationSchema={FORM_VALIDATION}
-                    onSubmit={()=>addOrUpdateCustmerDtl('')}
-                >
+                    onSubmit={addOrUpdateCustmerDtl}>
+                
                     <Form>
                         <div>
                             <div>
@@ -132,9 +159,9 @@ export function CustomerForm({customer}:Props) {
                                        type="text" name="country" id="country"/>
                             </div>
                             <div>
-                                <OmSubmitButton otherProps={{}}>
+                                <button type={'submit'} >
                                     {!customer?.id ? 'Add new Customer': 'Update Customer'}
-                                </OmSubmitButton>
+                                </button>
                             </div>
                         </div>
                     </Form>

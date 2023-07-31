@@ -7,5 +7,7 @@ public interface IOrderService
 {
   IQueryable<Order> GetOrders();
   
-  public Task<Order> AddOrUpdateOrderAsync(OrderModel orderModel);
+   Task<Order> AddOrUpdateOrderAsync(OrderModel orderModel);
+  
+   Task<bool> DeleteOrderAsync(int orderid);
 }

@@ -37,7 +37,7 @@ export default function OrderForm({order}:Props) {
                        value={orderState.totalAmount} type="text" name="totalAmount" id="totalAmount"/>
                 <input  onChange={e=>changeHandler(e)} 
                        value={orderState.depositAmount} type="text" name="depositAmount" id="depositAmount"/>
-                <button type={'submit'}></button>
+                <button type={'submit'}>Submit</button>
             </form>
             
         </div>

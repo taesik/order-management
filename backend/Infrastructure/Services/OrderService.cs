@@ -19,7 +19,7 @@ public class OrderService: IOrderService
   {
     var context = _contextFactory.CreateDbContext();
     return context.Orders
-      .Where(o => !o.isDeleted)
+      .Where(o => !o.IsDeleted)
       .Include(o => o.Customer);
   }
 
@@ -46,7 +46,7 @@ public class OrderService: IOrderService
         Description = orderModel.Description,
         TotalAmount = orderModel.TotalAmount,
         DepositAmount = orderModel.DepositAmount,
-        isDelivery = orderModel.isDelivery,
+        IsDelivery = orderModel.isDelivery,
         Status = orderModel.Status,
         OtherNotes = orderModel.OtherNotes
       };
@@ -67,7 +67,7 @@ public class OrderService: IOrderService
       order.Description = orderModel.Description;
       order.TotalAmount = orderModel.TotalAmount;
       order.DepositAmount = orderModel.DepositAmount;
-      order.isDelivery = orderModel.isDelivery;
+      order.IsDelivery = orderModel.isDelivery;
       order.Status = orderModel.Status;
       order.OtherNotes = orderModel.OtherNotes;
 
@@ -76,5 +76,23 @@ public class OrderService: IOrderService
     await context.SaveChangesAsync();
 
     return order;
+  }
+
+  public async Task<bool> DeleteOrderAsync(int orderid)
+  {
+    var context = _contextFactory.CreateDbContext();
+    
+    var order =await context.Orders
+      .Where(o => o.Id == orderid)
+      .FirstOrDefaultAsync();
+
+    if (order ==null)
+    {
+      throw new Exception($"Order with id {orderid} was not found");
+    }
+    
+    order.IsDeleted = true;
+    context.Orders.Update(order);
+    return await context.SaveChangesAsync()>0;
   }
 }

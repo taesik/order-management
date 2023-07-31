@@ -19,4 +19,18 @@ public class Mutation
   {
     return await orderService.AddOrUpdateOrderAsync(order);
   }
+  
+  public async Task<bool> DeleteCustomer(
+    [Service] ICustomerService customerService,
+    int customerid)
+  {
+    return await customerService.DeleteCustomerAsync(customerid);
+  }
+
+  public async Task<bool> DeleteOrder(
+    [Service] IOrderService orderService,
+    int orderid)
+  {
+    return await orderService.DeleteOrderAsync(orderid);
+  }
 }
